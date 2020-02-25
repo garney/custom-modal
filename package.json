@@ -1,0 +1,35 @@
+{
+  "name": "custom-modal",
+  "version": "0.1.0",
+  "description": "A simple react custom modal",
+  "main": "dist",
+  "keywords": [
+    "react",
+    "custom-modal"
+  ],
+  "scripts": {
+    "build": "babel src --out-dir dist && uglifyjs dist/*.js",
+    "prettify": "yarn prettier --write \"**/*.js\"",
+    "test": "jest"
+  },
+  "repository": "https://github.com/garney/custom-modal",
+  "author": "Garney",
+  "license": "MIT",
+  "private": false,
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.4",
+    "@babel/polyfill": "^7.8.3",
+    "@babel/preset-env": "^7.8.4",
+    "@babel/preset-react": "^7.8.3",
+    "husky": "^4.2.3",
+    "jest": "^25.1.0",
+    "prettier": "^1.19.1",
+    "prop-types": "^15.7.2",
+    "react": "^16.12.0",
+    "uglify-js": "^3.7.7"
+  },
+  "dependencies": {
+    "@garney/event-dispatcher": "^0.1.0"
+  }
+}
