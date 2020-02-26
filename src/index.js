@@ -1,8 +1,6 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import EventDispatcher from '@garney/event-dispatcher';
 
-import './modal.scss';
-
 
 class ModalDispatcher extends EventDispatcher {
   constructor() {
