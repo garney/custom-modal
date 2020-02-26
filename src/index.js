@@ -33,15 +33,14 @@ ModalDispatcher.instance = new ModalDispatcher();
 ModalDispatcher.events = {
   SET_MODAL: "SET_MODAL"
 };
-function Modal() {
+function Modal({modalStyle, popUpStyle, popUpContentStyle}) {
 
   const [options, setOptions] = useState({
     visible: false,
-    customContent: null,
-    onClickClose
+    customContent: null
   });
 
-  const modalStyle =  {
+  let defaultModalStyle =  {
     backgroundColor: 'rgba(0,0,0,.5)',
     position: 'fixed',
     top: 0,
@@ -52,8 +51,14 @@ function Modal() {
     justifyContent: 'center',
     alignItems: 'center'
   };
+  if(modalStyle) {
+    modalStyle = {
+      ...defaultModalStyle,
+      ...modalStyle
+    }
+  }
 
-  const popUpStyle = {
+  const defaultPopUpStyle = {
     display: 'flex',
     flexDirection: 'column',
     background: '#fff',
@@ -62,8 +67,13 @@ function Modal() {
     alignItems: 'center',
     justifyContent: 'center',
   };
-
-  const popUpContentStyle = {
+  if(popUpStyle) {
+    popUpStyle = {
+      ...defaultPopUpStyle,
+      ...popUpStyle
+    }
+  }
+  const defaultPopUpContentStyle = {
     display: 'flex',
     minWidth: 200,
     minHeight: 150,
@@ -71,6 +81,12 @@ function Modal() {
     justifyContent: 'center'
   };
 
+  if(popUpContentStyle) {
+    popUpContentStyle = {
+      ...defaultPopUpContentStyle,
+      ...popUpContentStyle
+    }
+  }
   const popUpTitleStyle = {
     marginTop: 5
   };

@@ -13,7 +13,30 @@ npm i custom-modal
 ## ✨ Usage
 
 ```javascript
-
+import { Modal, showModal }  from 'custom-modal';
+ 
+function DeepChild() {
+  return (
+    <div>
+      <button onClick={() => {
+            showModal({
+                title: 'Modal test',
+                message: 'This is a message'   
+            })  
+        }}>Show</button>
+      
+    </div>
+  )
+}
+ 
+export default () => {
+  return (
+    <div className="main-app">
+        <DeepChild/>
+        <Modal/>
+    </div>
+  );
+};
 ```
 
 ## 📌 Props
