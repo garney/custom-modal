@@ -31,11 +31,12 @@ ModalDispatcher.instance = new ModalDispatcher();
 ModalDispatcher.events = {
   SET_MODAL: "SET_MODAL"
 };
-function Modal({modalStyle, popUpStyle, popUpContentStyle}) {
+function Modal({modalStyle, popUpStyle, popUpContentStyle, onAutoClose}) {
 
   const [options, setOptions] = useState({
     visible: false,
-    customContent: null
+    customContent: null,
+    autoClose: true
   });
 
   let defaultModalStyle =  {
@@ -49,12 +50,10 @@ function Modal({modalStyle, popUpStyle, popUpContentStyle}) {
     justifyContent: 'center',
     alignItems: 'center'
   };
-  if(modalStyle) {
-    modalStyle = {
-      ...defaultModalStyle,
-      ...modalStyle
-    }
-  }
+  modalStyle = {
+    ...defaultModalStyle,
+    ...modalStyle
+  };
 
   const defaultPopUpStyle = {
     display: 'flex',
@@ -65,12 +64,10 @@ function Modal({modalStyle, popUpStyle, popUpContentStyle}) {
     alignItems: 'center',
     justifyContent: 'center',
   };
-  if(popUpStyle) {
-    popUpStyle = {
-      ...defaultPopUpStyle,
-      ...popUpStyle
-    }
-  }
+  popUpStyle = {
+    ...defaultPopUpStyle,
+    ...popUpStyle
+  };
   const defaultPopUpContentStyle = {
     display: 'flex',
     minWidth: 200,
@@ -79,19 +76,20 @@ function Modal({modalStyle, popUpStyle, popUpContentStyle}) {
     justifyContent: 'center'
   };
 
-  if(popUpContentStyle) {
-    popUpContentStyle = {
-      ...defaultPopUpContentStyle,
-      ...popUpContentStyle
-    }
-  }
+  popUpContentStyle = {
+    ...defaultPopUpContentStyle,
+    ...popUpContentStyle
+  };
   const popUpTitleStyle = {
     marginTop: 5
   };
 
   useEffect(() => {
-    ModalDispatcher.instance.addEventListener(ModalDispatcher.events.SET_MODAL, (options) => {
-      setOptions(options);
+    ModalDispatcher.instance.addEventListener(ModalDispatcher.events.SET_MODAL, (data) => {
+      setOptions({
+        ...options,
+        ...data
+      });
     })
   }, []);
 
@@ -113,7 +111,12 @@ function Modal({modalStyle, popUpStyle, popUpContentStyle}) {
 
   const view = options.visible ? (
       <div style={modalStyle} onClick={() =>{
-        ModalDispatcher.instance.hideModal();
+        if(options.autoClose) {
+          ModalDispatcher.instance.hideModal();
+          if(onAutoClose) {
+            onAutoClose();
+          }
+        }
       }}>
         {options.customContent ? options.customContent : popUp}
       </div>
